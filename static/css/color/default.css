@@ -1,0 +1,33 @@
+::selection {
+  background-color: #e74430;
+  color: #fff;
+}
+::-moz-selection {
+  background-color: #e74430;
+  color: #fff;
+}
+
+.m-btn,
+.service-box .sb-icon,
+.header .navbar-nav > li.current > a,
+.portfolio-col .hover label,
+.call-to-action,
+.social-link li a:hover,
+.navbar-toggle{
+	background-color: #e74430;
+}
+
+.section-title h2 span,
+.fixed-header .logo,
+.fixed-header .logo a,
+.header .navbar-nav > li > a:hover,
+.portfolio-box .filter button.mixitup-control-active,
+.portfolio-box .filter button:hover,
+.resume-box h4 {
+	color:  #e74430;
+}
+
+.contact-us .form-control:focus,
+.contact-us textarea.form-control:focus{
+	border-color: #e74430;
+}
