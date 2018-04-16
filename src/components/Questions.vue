@@ -7,7 +7,7 @@
             {{ questions[randIndx].optionA }}
             </label>
         </div>
-
+        {{ selected }}
 	    <div class="form-check">
             <input class="form-check-input" type="radio" name="ans" v-model="selected" id="optionB" value="B">
             <label class="form-check-label" for="optionB">
@@ -73,13 +73,13 @@
 
 		methods: {
 			goNext(){
-          		this.questions = $.grep(this.questions, (question, index) => {
+          	this.questions = $.grep(this.questions, (question, index) => {
     				if(this.questions.length == 1){
     					this.$router.push('/score')
     				}
-		            return question.id != this.questions[this.randIndx].id
+		          return question.id != this.questions[this.randIndx].id
 		        });
-          		this.randIndx = Math.floor(Math.random() * this.questions.length)
+          	this.randIndx = Math.floor(Math.random() * this.questions.length)
         	},
 		}
 	}

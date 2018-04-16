@@ -18,7 +18,6 @@
                         aria-valuemin="0" aria-valuemax="100">
                     </div>
 	            </div>
-	             
 	            <div class="question-body">
                     <div class="question-title">{{ questions[randIndx].question }}</div>
                     <div class="form-check">
@@ -65,11 +64,13 @@
     import { db } from '../main'
     import firebase from 'firebase';
 	export default{
+
 		name: 'Quiz',
 		components: {
 	      Timebar,
 	      Leaders,
 	    },
+
 	    data(){
 	    	return{
 	    		start:0,
@@ -79,6 +80,7 @@
                 time:12,
 	    	}
 	    },
+
         created(){
             db.collection('questions')
                 .get()
@@ -113,27 +115,31 @@
         },
 
         methods: {
-            /*submitAnswer(ans,id){
-              this.questions.filter(question => {
-                if(question.id == id){
-                  if(question.ans == ans){
-                    this.score +=1;
-                    db.collection('participents')
-                    .where('particiepent_id','==',this.particiepent_id)
-                    .get()
-                    .then(querySnapshot => {
-                      querySnapshot.forEach(doc => {
-                        doc.ref.update({
-                          score : this.score,
-                        })
-                      })
-                    })
-                  }
-                }
-              })
-            },*/
+            submitAnswer(ans,id){
+                console.log(this.questions)
+                this.questions.filter(question => {
+                    if(question.id == id){
+                      if(question.ans == ans){
+                        console.log(ans)
+                        /*this.score +=1;
+                        db.collection('participents')
+                        .where('particiepent_id','==',this.particiepent_id)
+                        .get()
+                        .then(querySnapshot => {
+                          querySnapshot.forEach(doc => {
+                            doc.ref.update({
+                              score : this.score,
+                            })
+                          })
+                        })*/
+                      }
+                    }
+                })
+            },
             
             goNext(){
+                if(this.selected != '' && this.questions!= '')
+                    this.submitAnswer(this.selected,this.questions[this.randIndx].id)
                 this.time = 10;
                 this.selected = '';
                 this.questions = $.grep(this.questions, (question, index) => {
@@ -144,6 +150,7 @@
                 });
                 this.randIndx = Math.floor(Math.random() * this.questions.length)
             },
+
             timeBar() {
                 const _this=this
                 this.time--
