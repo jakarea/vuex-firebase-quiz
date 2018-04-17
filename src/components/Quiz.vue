@@ -15,7 +15,7 @@
 	            <div class="progress">
 	                <div class="progress-bar progress-bar-striped bg-success"
                         role="progressbar" :style="{ width: time * 10 + '%'}"
-                        aria-valuemin="0" aria-valuemax="100">
+                        aria-valuemin="0" aria-valuemax="100"> {{ time }}
                     </div>
 	            </div>
 	            <div class="question-body">

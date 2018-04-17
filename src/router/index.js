@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 import Home from '../components/Home.vue';
 import Login from '../components/Login.vue';
+import Register from '../components/Register.vue';
 import Quiz from '../components/Quiz.vue';
 import Score from '../components/Score.vue';
 import AddQuestion from '../components/AddQuestion.vue';
@@ -14,6 +15,11 @@ const routes=[
         name: 'login',
         path: '/login',
         component: Login
+    },
+    {
+        name: 'register',
+        path: '/register',
+        component: Register
     },
     {
         name: 'quiz',

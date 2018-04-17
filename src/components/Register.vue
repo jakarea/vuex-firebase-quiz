@@ -2,7 +2,7 @@
     <section id="contact" class="section contact-us">
         <div class="container">
             <div class="section-title">
-                <h2>Please<span> Login</span></h2>
+                <h2>Please<span> Register</span></h2>
             </div>
             <div class="row">
                 <div class="col-sm-6 col-xs-12 col-md-6 col-md-offset-3">
@@ -20,11 +20,11 @@
                                 
                                 <div class="row">
                                     <div class="col-md-8">    
-                                        <p>Don't have account? <router-link to="/register" tag="a">register</router-link></p>
+                                        <p>Allready have account? <router-link to="/login" tag="a">login</router-link></p>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group action">
-                                            <button class="m-btn pull-right">Login </button>
+                                        	<button class="m-btn pull-right">Rregiste</button>
                                         </div>
                                     </div>
                                 </div>
@@ -32,10 +32,10 @@
                                 <div class="row">
                                 	<div class="col-md-12">
 	                                    <div class="form-group action">
-                                            <button class="m-btn pull-left">Log In with facebook</button>
+                                            <button class="m-btn pull-left">Registe with facebook</button>
                                         </div>
                                         <div class="form-group action">
-	                                    	<button class="m-btn pull-right">Log In with google</button>
+	                                    	<button class="m-btn pull-right">Registe with google</button>
 	                                    </div>
 	                                </div>
                                 </div>	
