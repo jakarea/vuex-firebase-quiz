@@ -12,7 +12,10 @@ Vue.use(VueFire)
 
 firebase.initializeApp({
 	projectId: 'vue-firebase-quiz',
-  	databaseURL: 'https://vue-firebase-quiz.firebaseio.com'
+  	databaseURL: 'https://vue-firebase-quiz.firebaseio.com',
+  	apiKey: 'AIzaSyCXHZVqI6y09vM6Hk06JG-_P9ahyMj0ezw',
+  	 authDomain: 'vue-firebase-quiz.firebaseapp.com',
+
 })
 
 export const db = firebase.firestore()

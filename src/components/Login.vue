@@ -9,13 +9,14 @@
                     <div class="contact-form">
                         <form id="contact_form">
                             <div class="row">
+                                {{ error.message }}
                                 <div class="col-md-12">
                                     <div class="form-group"><label class="sr-only">Email</label> 
-                                    <input name="name" placeholder="Email" type="text" class="form-control"></div>
+                                    <input name="name" placeholder="Email" v-model="email" type="text" class="form-control"></div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group"><label class="sr-only">Password</label> 
-                                    <input name="name" placeholder="Plassword" type="password" class="form-control"></div>
+                                    <input name="name" placeholder="Plassword" v-model="password" type="password" class="form-control"></div>
                                 </div>
                                 
                                 <div class="row">
@@ -24,7 +25,8 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group action">
-                                            <button class="m-btn pull-right">Login </button>
+                                            <button class="m-btn pull-right" 
+                                                @click.prevent="authenticat">Login </button>
                                         </div>
                                     </div>
                                 </div>
@@ -47,3 +49,32 @@
         </div>
     </section>
 </template>
+
+<script type="text/javascript">
+    import firebase from 'firebase';
+    export default{
+        name: 'Quiz',
+        data(){
+            return{
+                email : null,
+                password : null,
+                error : {
+                    message : 'Hello error message'
+                }
+            }
+        },
+
+        created(){
+            console.log('created')
+        },
+
+        methods: {
+            authenticat(){
+                firebase.auth().signInWithEmailAndPassword(this.email,this.password)
+                .catch(error => {
+                  this.error = error
+                })
+            },
+        }
+    }
+</script>
