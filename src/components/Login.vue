@@ -9,7 +9,7 @@
                     <div class="contact-form">
                         <form id="contact_form">
                             <div class="row">
-                                {{ error.message }}
+                                {{ error }}
                                 <div class="col-md-12">
                                     <div class="form-group"><label class="sr-only">Email</label> 
                                     <input name="name" placeholder="Email" v-model="email" type="text" class="form-control"></div>
@@ -58,9 +58,8 @@
             return{
                 email : null,
                 password : null,
-                error : {
-                    message : 'Hello error message'
-                }
+                error : '',
+                user:''
             }
         },
 
@@ -74,6 +73,15 @@
                 .catch(error => {
                   this.error = error
                 })
+                if(!this.error){
+                    firebase.auth().onAuthStateChanged(function(user) {
+                        if (user) {
+                            this.user = user
+                        } else {
+                            console.log('Authentication fail')
+                        }
+                    })
+                }
             },
         }
     }

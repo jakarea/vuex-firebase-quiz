@@ -14,7 +14,7 @@ firebase.initializeApp({
 	projectId: 'vue-firebase-quiz',
   	databaseURL: 'https://vue-firebase-quiz.firebaseio.com',
   	apiKey: 'AIzaSyCXHZVqI6y09vM6Hk06JG-_P9ahyMj0ezw',
-  	 authDomain: 'vue-firebase-quiz.firebaseapp.com',
+  	authDomain: 'vue-firebase-quiz.firebaseapp.com',
 
 })
 
