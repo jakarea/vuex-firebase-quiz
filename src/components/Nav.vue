@@ -21,6 +21,7 @@
               <li><router-link to="/projects" tag="a">Projects</router-link></li>
               <li><router-link to="/quiz" tag="a">Quiz</router-link></li>
               <li><router-link to="/contact" tag="a">Contact</router-link></li>
+              <li><router-link to="/login" tag="a">Login</router-link></li>
             </ul>
           </div>
         </div>

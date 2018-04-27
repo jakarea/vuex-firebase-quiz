@@ -1,15 +1,18 @@
-import { mutations } from './mutation-types.js';
-import { getters } from './getters.js';
-import { actions } from './actions.js';
+import Vue from 'vue'
+import Vuex from 'vuex'
+Vue.use(Vuex)
 
-// Store
-export default {
-    strict: process.env.NODE_ENV!=='production',
+import state from './state';
+import mutations from './mutations';
+import actions from './actions';
+import getters from './getters';
+
+const debug = process.env.NODE_ENV !== 'production'
+
+export default new Vuex.Store({
+    state,
     mutations,
     getters,
     actions,
-    state: {
-        posts: [],
-        post: {},
-    },
-}
+    strict: debug
+})

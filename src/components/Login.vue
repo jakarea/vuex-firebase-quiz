@@ -9,23 +9,26 @@
                     <div class="contact-form">
                         <form id="contact_form">
                             <div class="row">
-                                {{ error }}
+                                {{ error.message }}
+                                {{ user }}
+
+                                <button @click.prevent="logout">logout</button>
                                 <div class="col-md-12">
-                                    <div class="form-group"><label class="sr-only">Email</label> 
+                                    <div class="form-group"><label class="sr-only">Email</label>
                                     <input name="name" placeholder="Email" v-model="email" type="text" class="form-control"></div>
                                 </div>
                                 <div class="col-md-12">
-                                    <div class="form-group"><label class="sr-only">Password</label> 
+                                    <div class="form-group"><label class="sr-only">Password</label>
                                     <input name="name" placeholder="Plassword" v-model="password" type="password" class="form-control"></div>
                                 </div>
-                                
+
                                 <div class="row">
-                                    <div class="col-md-8">    
+                                    <div class="col-md-8">
                                         <p>Don't have account? <router-link to="/register" tag="a">register</router-link></p>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group action">
-                                            <button class="m-btn pull-right" 
+                                            <button class="m-btn pull-right"
                                                 @click.prevent="authenticat">Login </button>
                                         </div>
                                     </div>
@@ -40,7 +43,7 @@
 	                                    	<button class="m-btn pull-right">Log In with google</button>
 	                                    </div>
 	                                </div>
-                                </div>	
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -51,38 +54,50 @@
 </template>
 
 <script type="text/javascript">
-    import firebase from 'firebase';
+    import firebase from 'firebase'
+    import { mapState,mapActions } from 'vuex'
     export default{
         name: 'Quiz',
         data(){
             return{
                 email : null,
                 password : null,
-                error : '',
-                user:''
+                error : ''
             }
         },
 
-        created(){
-            console.log('created')
+        computed:{
+            ...mapState({
+                user : state => state.user
+                })           
         },
 
         methods: {
+
+            ...mapActions(['setUser']),
+
             authenticat(){
                 firebase.auth().signInWithEmailAndPassword(this.email,this.password)
-                .catch(error => {
-                  this.error = error
+                .then( (user) => {
+                    this.setUser(user)
+                    this.$router.push('/quiz')
                 })
-                if(!this.error){
-                    firebase.auth().onAuthStateChanged(function(user) {
-                        if (user) {
-                            this.user = user
-                        } else {
-                            console.log('Authentication fail')
-                        }
-                    })
-                }
+                .catch((error) => {
+                    console.log(error)
+
+                    this.error = error.message
+                })
             },
-        }
+
+            logout(){
+                firebase.auth().signOut().then(() => {
+                    console.log('1234')
+                   // this.$router.push('/')
+                },
+                (error) => {
+                    console.log(error)
+                });
+            }
+        },
     }
 </script>
