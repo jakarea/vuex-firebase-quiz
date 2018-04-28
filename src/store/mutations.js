@@ -1,9 +1,10 @@
 export default {
-	'CHANGE_PHONE' (state, payload){
-		state.user.phone = payload
-	},
-	
 	'SET_USER' (state, payload){
+		console.log('mutation')
 		state.user = payload
+	},
+
+	'UNSET_USER'(){
+		state.user = ''
 	}
 }

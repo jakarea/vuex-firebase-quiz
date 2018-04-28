@@ -74,25 +74,23 @@
 
         methods: {
 
-            ...mapActions(['setUser']),
+            ...mapActions(['setUser','unSetUser']),
 
             authenticat(){
                 firebase.auth().signInWithEmailAndPassword(this.email,this.password)
                 .then( (user) => {
                     this.setUser(user)
-                    this.$router.push('/quiz')
+                    this.$router.push('/login')
                 })
                 .catch((error) => {
                     console.log(error)
-
                     this.error = error.message
                 })
             },
 
             logout(){
                 firebase.auth().signOut().then(() => {
-                    console.log('1234')
-                   // this.$router.push('/')
+                   this.unSetUser()
                 },
                 (error) => {
                     console.log(error)
