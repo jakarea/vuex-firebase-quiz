@@ -6,5 +6,6 @@ export default {
 
 	'UNSET_USER'(){
 		state.user = ''
+		console.log('UNSET_USER')
 	}
 }

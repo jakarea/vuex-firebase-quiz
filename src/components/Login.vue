@@ -11,8 +11,6 @@
                             <div class="row">
                                 {{ error.message }}
                                 {{ user }}
-
-                                <button @click.prevent="logout">logout</button>
                                 <div class="col-md-12">
                                     <div class="form-group"><label class="sr-only">Email</label>
                                     <input name="name" placeholder="Email" v-model="email" type="text" class="form-control"></div>
@@ -69,18 +67,17 @@
         computed:{
             ...mapState({
                 user : state => state.user
-                })           
+            })           
         },
 
         methods: {
 
-            ...mapActions(['setUser','unSetUser']),
+            ...mapActions(['setUser']),
 
             authenticat(){
                 firebase.auth().signInWithEmailAndPassword(this.email,this.password)
                 .then( (user) => {
                     this.setUser(user)
-                    this.$router.push('/login')
                 })
                 .catch((error) => {
                     console.log(error)
@@ -88,14 +85,6 @@
                 })
             },
 
-            logout(){
-                firebase.auth().signOut().then(() => {
-                   this.unSetUser()
-                },
-                (error) => {
-                    console.log(error)
-                });
-            }
         },
     }
 </script>
