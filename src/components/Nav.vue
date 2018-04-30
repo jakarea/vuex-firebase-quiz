@@ -10,9 +10,8 @@
             </button>
             <h1 class="logo">
               <a href="#">Jakarea <span>Parvez </span></a>
-              <p>how did i solve {{ user.email }}</p>
+              <p>how did i solve </p>
             </h1>
-            <button @click.prevent="logout">logout</button>
           </div>
           <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -22,7 +21,7 @@
               <li><router-link to="/projects" tag="a">Projects</router-link></li>
               <li><router-link to="/quiz" tag="a">Quiz</router-link></li>
               <li><router-link to="/contact" tag="a">Contact</router-link></li>
-              <li v-if="user.email"><router-link to="/" tag="a" @click.prevent="logout">logout</router-link></li>
+              <li v-if="user.email"><router-link to="/" tag="a" @click="logout">logout</router-link></li>
               <li v-else><router-link to="/login" tag="a">Login</router-link></li>
             </ul>
           </div>

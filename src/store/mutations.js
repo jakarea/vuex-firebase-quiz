@@ -1,11 +1,16 @@
-export default {
-	'SET_USER' (state, payload){
-		console.log('mutation')
-		state.user = payload
-	},
+import Vue from 'vue'
+import * as types from './mutation-types'
 
-	'UNSET_USER'(){
-		state.user = ''
-		console.log('UNSET_USER')
-	}
+
+function setUser (state, payload) {
+  state.user = payload
+}
+
+function unSetUser (state) {
+  state.user = ''
+}
+
+export default {
+  [types.SET_USER]: setUser,
+  [types.UNSET_USER]: unSetUser
 }

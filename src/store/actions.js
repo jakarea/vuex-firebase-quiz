@@ -1,9 +1,12 @@
 import firebase from 'firebase'
 export default {
-	getUserByEmaailAndPassword (context, payload) {
+	getUserByEmailAndPassword (context, payload) {
 		firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
-		.then( (user) => {
-				
+		.then( (auth) => {
+				let user = {
+						email: auth.email,
+				}
+				context.commit('SET_USER',user)
 		})
 		.catch((error) => {
 				console.log(error)
@@ -11,7 +14,6 @@ export default {
 	},
 
 	unSetUser(context){
-		console.log('unset user')
 		context.commit('UNSET_USER')
 	}
 }

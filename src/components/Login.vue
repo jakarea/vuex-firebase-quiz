@@ -27,7 +27,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group action">
                                             <button class="m-btn pull-right"
-                                                @click.prevent="authenticatByEmaailAndPassword">Login </button>
+                                                @click.prevent="authenticatByEmailAndPassword">Login </button>
                                         </div>
                                     </div>
                                 </div>
@@ -71,11 +71,11 @@
 
         methods: {
 
-            ...mapActions(['getUser']),
+            ...mapActions(['getUserByEmailAndPassword']),
 
-            authenticatByEmaailAndPassword(){
+            authenticatByEmailAndPassword(){
               const credentials = { email:this.email, password: this.password}
-              this.getUserByEmaailAndPassword(credentials)
+              this.getUserByEmailAndPassword(credentials)
             },
         }
     }
