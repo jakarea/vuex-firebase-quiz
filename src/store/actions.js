@@ -1,6 +1,13 @@
+import firebase from 'firebase'
 export default {
-	setUser (context, payload) {
-		context.commit('SET_USER', payload)
+	getUserByEmaailAndPassword (context, payload) {
+		firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
+		.then( (user) => {
+				
+		})
+		.catch((error) => {
+				console.log(error)
+		})
 	},
 
 	unSetUser(context){

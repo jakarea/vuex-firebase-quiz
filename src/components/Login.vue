@@ -27,7 +27,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group action">
                                             <button class="m-btn pull-right"
-                                                @click.prevent="authenticat">Login </button>
+                                                @click.prevent="authenticatByEmaailAndPassword">Login </button>
                                         </div>
                                     </div>
                                 </div>
@@ -52,7 +52,6 @@
 </template>
 
 <script type="text/javascript">
-    import firebase from 'firebase'
     import { mapState,mapActions } from 'vuex'
     export default{
         name: 'Quiz',
@@ -67,24 +66,17 @@
         computed:{
             ...mapState({
                 user : state => state.user
-            })           
+            })
         },
 
         methods: {
 
-            ...mapActions(['setUser']),
+            ...mapActions(['getUser']),
 
-            authenticat(){
-                firebase.auth().signInWithEmailAndPassword(this.email,this.password)
-                .then( (user) => {
-                    this.setUser(user)
-                })
-                .catch((error) => {
-                    console.log(error)
-                    this.error = error.message
-                })
+            authenticatByEmaailAndPassword(){
+              const credentials = { email:this.email, password: this.password}
+              this.getUserByEmaailAndPassword(credentials)
             },
-
-        },
+        }
     }
 </script>
