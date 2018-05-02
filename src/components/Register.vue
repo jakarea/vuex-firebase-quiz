@@ -10,17 +10,23 @@
                     <div class="contact-form">
                         <form id="contact_form">
                             <div class="row">
-                                 <div class="col-md-12">
+                                <div class="col-md-12">
                                     <div class="form-group"><label class="sr-only">Name</label> 
-                                    <input name="name" placeholder="Your name" v-model="name" type="text" class="form-control"></div>
+                                        <input name="name" placeholder="Your name" v-model="name" type="text" class="form-control">
+                                        <span class="help-text text-danger">{{ error.name }}</span>
+                                    </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group"><label class="sr-only">Email</label> 
-                                    <input name="email" placeholder="Email" v-model="email" type="text" class="form-control"></div>
+                                        <input name="email" placeholder="Email" v-model="email" type="text" class="form-control">
+                                        <span class="help-text text-danger">{{ error.email }}</span>
+                                    </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group"><label class="sr-only">Password</label> 
-                                    <input name="password" placeholder="Password" v-model="password" type="password" class="form-control"></div>
+                                        <input name="password" placeholder="Password" v-model="password" type="password" class="form-control">
+                                        <span class="help-text text-danger">{{ error.email }}</span>
+                                    </div>
                                 </div>
                                 
                                 <div class="row">
@@ -60,10 +66,15 @@
         name: 'Register',
         data(){
             return{
-                email : null,
-                password : null,
-                error : '',
-                name:''
+                email : '',
+                password : '',
+                name :'',
+                error : {
+                    email : '',
+                    name : '',
+                    password : ''
+                },
+                countErrors: 0
             }
         },
 
@@ -76,13 +87,28 @@
         methods: {
 
             ...mapActions(['registerUserByEmailAndPassword','authenticatUserByFacebook']),
+            checkRequired(){
+                if(this.email ==''){
+                    this.countErrors++
+                    this.error.email = 'Email should not be empty'
+                }
+                if(this.name ==''){
+                    this.countErrors++
+                    this.error.name = 'Name should not be empty'
+                }
+                if(this.password ==''){
+                    this.countErrors++
+                    this.error.password = 'Password should not be empty'
+                }
 
-            authenticatByEmailAndPassword(){
-              const credentials = { email:this.email, password: this.password}
-              this.getUserByEmailAndPassword(credentials)
+                if(this.countErrors > 0)
+                    return false
             },
-
+            
             registerByEmailAndPassword(){
+                if(!this.checkRequired())
+                    return false 
+                console.log('dedeC')
                 const credentials = { email:this.email, password: this.password, name:this.name}
                 this.registerUserByEmailAndPassword(credentials)
             }

@@ -9,15 +9,18 @@
                     <div class="contact-form">
                         <form id="contact_form">
                             <div class="row">
-                                {{ error.message }}
-                                {{ user }}
+                                
                                 <div class="col-md-12">
-                                    <div class="form-group"><label class="sr-only">Email</label>
-                                    <input name="name" placeholder="Email" v-model="email" type="text" class="form-control"></div>
+                                    <div class="form-group has-error">
+                                        <label class="sr-only">Email</label>
+                                        <input name="name" placeholder="Email" v-model="email" type="text" class="form-control">
+                                        <span class="help-text text-danger">{{ error.email }}</span>
+                                    </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <div class="form-group"><label class="sr-only">Password</label>
+                                    <div class="form-group has-error"><label class="sr-only">Password</label>
                                     <input name="name" placeholder="Plassword" v-model="password" type="password" class="form-control"></div>
+                                    <span class="help-text text-danger">{{ error.password }}</span>
                                 </div>
 
                                 <div class="row">
@@ -57,9 +60,14 @@
         name: 'Login',
         data(){
             return{
-                email : null,
-                password : null,
-                error : ''
+                email : '',
+                password : '',
+                error : {
+                    email : '',
+                    name : '',
+                    password : ''
+                },
+                countErrors: 0
             }
         },
 
@@ -72,10 +80,29 @@
         methods: {
 
             ...mapActions(['getUserByEmailAndPassword','authenticatUserByFacebook']),
+            checkRequired(){
+                if(this.email ==''){
+                    this.countErrors++
+                    this.error.email = 'Email should not be empty'
+                }
+                if(this.name ==''){
+                    this.countErrors++
+                    this.error.name = 'Name should not be empty'
+                }
+                if(this.password ==''){
+                    this.countErrors++
+                    this.error.password = 'Password should not be empty'
+                }
 
+                if(this.countErrors > 0)
+                    return false
+            },
             authenticatByEmailAndPassword(){
-              const credentials = { email:this.email, password: this.password}
-              this.getUserByEmailAndPassword(credentials)
+                if(!this.checkRequired())
+                    return false 
+                console.log('1d2e3de4C')
+                const credentials = { email:this.email, password: this.password }
+                this.getUserByEmailAndPassword(credentials)
             },
         }
     }

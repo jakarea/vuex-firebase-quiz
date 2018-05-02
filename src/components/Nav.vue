@@ -21,7 +21,7 @@
               <li><router-link to="/projects" tag="a">Projects</router-link></li>
               <li><router-link to="/quiz" tag="a">Quiz</router-link></li>
               <li><router-link to="/contact" tag="a">Contact</router-link></li>
-              <li v-if="user.email"><router-link to="/" tag="a" @click="logout">logout</router-link></li>
+              <li v-if="user.email"><router-link to="/login" tag="a" @click="logout.prevent">logout</router-link></li>
               <li v-else><router-link to="/login" tag="a">Login</router-link></li>
             </ul>
           </div>
@@ -47,8 +47,10 @@
     methods: {
       ...mapActions(['unSetUser']),
       logout(){
+         console.log('logging out 1')
         firebase.auth().signOut().then(() => {
           this.unSetUser()
+          console.log('logging out 2')
           this.$router.push('/login')
         },
         (error) => {

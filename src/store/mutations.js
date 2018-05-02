@@ -8,6 +8,7 @@ function setUser (state, payload) {
 
 function unSetUser (state) {
   state.user = ''
+  console.log('logging out 4')
 }
 
 export default {

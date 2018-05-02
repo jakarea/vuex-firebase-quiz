@@ -72,6 +72,7 @@ export default {
 	},
 
 	unSetUser(context){
+		console.log('logging out 3')
 		context.commit('UNSET_USER')
 	}
 }
