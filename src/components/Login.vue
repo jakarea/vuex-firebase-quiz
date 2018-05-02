@@ -35,7 +35,7 @@
                                 <div class="row">
                                 	<div class="col-md-12">
 	                                    <div class="form-group action">
-                                            <button class="m-btn pull-left">Log In with facebook</button>
+                                            <button class="m-btn pull-left" @click.prevent="authenticatUserByFacebook">Log In with facebook</button>
                                         </div>
                                         <div class="form-group action">
 	                                    	<button class="m-btn pull-right">Log In with google</button>
@@ -54,7 +54,7 @@
 <script type="text/javascript">
     import { mapState,mapActions } from 'vuex'
     export default{
-        name: 'Quiz',
+        name: 'Login',
         data(){
             return{
                 email : null,
@@ -71,7 +71,7 @@
 
         methods: {
 
-            ...mapActions(['getUserByEmailAndPassword']),
+            ...mapActions(['getUserByEmailAndPassword','authenticatUserByFacebook']),
 
             authenticatByEmailAndPassword(){
               const credentials = { email:this.email, password: this.password}

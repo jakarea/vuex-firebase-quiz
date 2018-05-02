@@ -6,11 +6,11 @@
         		<h3>If You are ready to start exam, then hit start button</h3>
         		<div class="col-md-3 col-md-offset-4">
 	        		<div class="quiz-btn start-btn">
-				        <button class="m-btn btn-xs" @click="start=!start">Start</button>
+				        <button class="m-btn btn-xs" @click="startQuiz">Start</button>
 				    </div>
 				</div>
         	</div>
-        	
+        	{{ user }}
         	<div v-if="start" >
 	            <div class="progress">
 	                <div class="progress-bar progress-bar-striped bg-success"
@@ -45,12 +45,16 @@
                         {{ questions[randIndx].optionD }}
                         </label>
                     </div>
+                    
                     <div class="about-actions quiz-btn">
                         <button class="m-btn btn-xs pull-right"  @click="goNext">Next</button>
                     </div>
 	            </div>
 	        </div>
         </div>
+        <div>
+            <button @click="addParticipent">Add Perticipentss</button>
+        </div> 
         <div class="col-md-4 col-sm-6 col-xs-6">
             <div class="leaderboard">
                 <Leaders />
@@ -59,12 +63,12 @@
     </div>
 </template>
 <script type="text/javascript">
+    import { mapState,mapActions } from 'vuex'
 	import Timebar from './Timebar'
 	import Leaders from './Leaders'
     import { db } from '../main'
     import firebase from 'firebase';
 	export default{
-
 		name: 'Quiz',
 		components: {
 	      Timebar,
@@ -80,6 +84,12 @@
                 time:12,
 	    	}
 	    },
+
+        computed:{
+        ...mapState({
+            user : state => state.user
+            }),
+        },
 
         created(){
             db.collection('questions')
@@ -108,15 +118,8 @@
             setTimeout(function(){ _this.goNext() }, 1000);
         },
 
-        firestore () {
-          return {
-            participents: db.collection('participents').orderBy('score')
-          }
-        },
-
         methods: {
             submitAnswer(ans,id){
-                console.log(this.questions)
                 this.questions.filter(question => {
                     if(question.id == id){
                       if(question.ans == ans){
@@ -160,6 +163,60 @@
                 }
                 setTimeout(function(){ _this.timeBar() }, 1000);
             },
+
+            startQuiz: function() {
+                if(!this.user.email){
+                   this.$router.push('/login')
+                }
+                
+               // this.addParticipent()
+
+               db.collection('participents').add({
+                        participent_id : this.user.email,
+                        name: 'jakarea parvez',
+                        score: 0,
+                    })
+
+                this.start = 1
+            },
+            addParticipent: function(){
+
+                db.collection("participents")
+                    .get().then(function(querySnapshot) {
+                        querySnapshot.forEach(function(doc){
+                            if (doc.exists) {
+                            console.log("Document data:", doc.data());
+                            } else {
+                                // doc.data() will be undefined in this case
+                                console.log("No such document!");
+                            }
+                        })
+                    }).catch(function(error) {
+                        console.log("Error getting document:", error);
+                    });
+
+
+               
+                // console.log('aaa')
+                // db.collection('participents')
+                //     .where('particiepent_id','==','j@p.com')
+                //     .get()
+                //     .then(querySnapshot => {
+                //         querySnapshot.forEach(doc => {
+                //         doc.ref.update({
+                //             score : 10,
+                //             })
+                //         })
+                //     })
+                //     .catch( () => {
+                //         console.log(ccc)
+                //             db.collection('participents').add({
+                //             participent_id : this.user.email,
+                //             name: 'jakarea parvez',
+                //             score: 0,
+                //         })
+                //     })
+            }
         }
 	}
 </script>
