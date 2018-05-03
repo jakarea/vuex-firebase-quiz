@@ -172,8 +172,9 @@
                // this.addParticipent()
 
                db.collection('participents').add({
-                        participent_id : this.user.email,
-                        name: 'jakarea parvez',
+                        participent_id : this.user.uid,
+                        name: this.user.displayName,
+                        photo: this.user.photo,
                         score: 0,
                     })
 

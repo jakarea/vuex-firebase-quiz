@@ -108,7 +108,7 @@
             registerByEmailAndPassword(){
                 if(!this.checkRequired())
                     return false 
-                console.log('dedeC')
+
                 const credentials = { email:this.email, password: this.password, name:this.name}
                 this.registerUserByEmailAndPassword(credentials)
             }

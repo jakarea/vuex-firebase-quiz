@@ -37,6 +37,9 @@
     name: 'app',
     components: {
       Nav
+    },
+    mounted:function(){
+      console.log('loading...')
     }
   }
 </script>

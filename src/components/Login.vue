@@ -11,15 +11,15 @@
                             <div class="row">
                                 
                                 <div class="col-md-12">
-                                    <div class="form-group has-error">
+                                    <div class="form-group">
                                         <label class="sr-only">Email</label>
                                         <input name="name" placeholder="Email" v-model="email" type="text" class="form-control">
                                         <span class="help-text text-danger">{{ error.email }}</span>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <div class="form-group has-error"><label class="sr-only">Password</label>
-                                    <input name="name" placeholder="Plassword" v-model="password" type="password" class="form-control"></div>
+                                    <div class="form-group"><label class="sr-only">Password</label>
+                                    <input name="name" placeholder="Password" v-model="password" type="password" class="form-control"></div>
                                     <span class="help-text text-danger">{{ error.password }}</span>
                                 </div>
 
@@ -64,7 +64,6 @@
                 password : '',
                 error : {
                     email : '',
-                    name : '',
                     password : ''
                 },
                 countErrors: 0
@@ -78,32 +77,34 @@
         },
 
         methods: {
-
             ...mapActions(['getUserByEmailAndPassword','authenticatUserByFacebook']),
             checkRequired(){
                 if(this.email ==''){
                     this.countErrors++
                     this.error.email = 'Email should not be empty'
                 }
-                if(this.name ==''){
-                    this.countErrors++
-                    this.error.name = 'Name should not be empty'
-                }
+                
                 if(this.password ==''){
                     this.countErrors++
                     this.error.password = 'Password should not be empty'
                 }
 
-                if(this.countErrors > 0)
+                if(!this.countErrors > 0)
                     return false
             },
-            authenticatByEmailAndPassword(){
-                if(!this.checkRequired())
-                    return false 
-                console.log('1d2e3de4C')
+            authenticatByEmailAndPassword: function(){
+                if(this.checkRequired())
+                    return false
+                
                 const credentials = { email:this.email, password: this.password }
-                this.getUserByEmailAndPassword(credentials)
-            },
+                this.getUserByEmailAndPassword(credentials).then(() => {
+                    if(this.user.email){
+                        console.log(this.user.email)
+                        this.$router.push('/home')
+                    }
+                });
+               
+            }
         }
     }
 </script>
