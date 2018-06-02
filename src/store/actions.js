@@ -11,7 +11,7 @@ export default {
 				context.commit('SET_USER',user)
 		})
 		.catch((error) => {
-				console.log(error)
+			console.log(error)
 		})
 	},
 
@@ -21,13 +21,15 @@ export default {
 			console.log(error.message)
 		})
 		.then( (auth) => {
+			console.log('auth:', auth)
 			auth.updateProfile({
 				displayName: payload.name,
 				photoURL: 'http://icons.iconarchive.com/icons/hopstarter/superhero-avatar/256/Avengers-Giant-Man-icon.png'
-			  }).catch(function(error) {
-				console.log('Reigstration fail')
-			  });
+			});
 		})
+		.catch(function(error) {
+			console.log('Reigstration fail')
+		});
 
 		firebase.auth().onAuthStateChanged(function(auth) {
 			if (auth) {
@@ -40,8 +42,8 @@ export default {
 			} else {
 				console.log('Authentication fail')
 			}
-		  });
-
+		});
+		this.$route.router.go('/');
 	},
 
 	authenticatUserByFacebook(context){

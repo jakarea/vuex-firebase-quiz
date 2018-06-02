@@ -88,6 +88,7 @@
 
             ...mapActions(['registerUserByEmailAndPassword','authenticatUserByFacebook']),
             checkRequired(){
+
                 if(this.email ==''){
                     this.countErrors++
                     this.error.email = 'Email should not be empty'
@@ -100,15 +101,18 @@
                     this.countErrors++
                     this.error.password = 'Password should not be empty'
                 }
-
+            
                 if(this.countErrors > 0)
-                    return false
+                    return true;
+                
+                this.error = ''
+                return false;
             },
             
             registerByEmailAndPassword(){
-                if(!this.checkRequired())
-                    return false 
-
+                if(this.checkRequired())
+                    return false;
+                  
                 const credentials = { email:this.email, password: this.password, name:this.name}
                 this.registerUserByEmailAndPassword(credentials)
             }
