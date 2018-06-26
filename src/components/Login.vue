@@ -9,8 +9,8 @@
                     <div class="contact-form">
                         <form id="contact_form">
                             <div class="row">
-                                
                                 <div class="col-md-12">
+                                    <span class="help-text text-danger text-center">{{ errors.message }}</span>
                                     <div class="form-group">
                                         <label class="sr-only">Email</label>
                                         <input name="name" placeholder="Email" v-model="email" type="text" class="form-control">
@@ -72,7 +72,8 @@
 
         computed:{
             ...mapState({
-                user : state => state.user
+                user : state => state.user,
+                errors: state => state.errors
             })
         },
 
@@ -97,12 +98,16 @@
                     return false
                 
                 const credentials = { email:this.email, password: this.password }
-                this.getUserByEmailAndPassword(credentials).then(() => {
+                this.getUserByEmailAndPassword(credentials)
+                .then(() => {
                     if(this.user.email){
-                        console.log(this.user.email)
+                        console.log('User:',this.user.email)
                         this.$router.push('/home')
+                        console.log('Do it first')
                     }
-                });
+                    console.log('Do it later')
+                })
+                .catch(() => {})
                
             }
         }

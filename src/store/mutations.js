@@ -9,7 +9,12 @@ function unSetUser (state) {
   state.user = {}
 }
 
+function setError (state, payload) {
+  state.errors = payload
+}
+
 export default {
   [types.SET_USER]: setUser,
-  [types.UNSET_USER]: unSetUser
+  [types.UNSET_USER]: unSetUser,
+  [types.SET_ERROR]: setError,
 }

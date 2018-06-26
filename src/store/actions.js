@@ -2,16 +2,16 @@ import firebase from 'firebase'
 export default {
 	getUserByEmailAndPassword (context, payload) {
 		firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
-		.then( (auth) => {
+		.then((auth) => {
 				let user = {
 					email: auth.email,
 					photoURL: auth.photoURL,
 					name:auth.displayName
 				}
-				context.commit('SET_USER',user)
+			context.commit('SET_USER',user)
 		})
 		.catch((error) => {
-			console.log(error)
+			context.commit('SET_ERROR',error)
 		})
 	},
 
