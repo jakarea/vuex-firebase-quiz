@@ -14,7 +14,6 @@ export default {
 			context.commit('SET_ERROR',error)
 		})
 	},
-
 	registerUserByEmailAndPassword(context, payload){
 		firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password).catch((error) => {
 			console.log(error.code)
@@ -43,7 +42,6 @@ export default {
 				console.log('Authentication fail')
 			}
 		});
-		this.$route.router.go('/');
 	},
 
 	authenticatUserByFacebook(context){
@@ -56,7 +54,7 @@ export default {
 				photo: result.user.photoURL,
 				token: result.credential.accessToken
 			}
-			
+
 			context.commit('SET_USER',user)
 		},
 		function(error) {

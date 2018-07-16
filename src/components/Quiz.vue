@@ -68,6 +68,7 @@
 	import Leaders from './Leaders'
     import { db } from '../main'
     import firebase from 'firebase';
+
 	export default{
 		name: 'Quiz',
 		components: {
@@ -92,6 +93,8 @@
         },
 
         created(){
+            const currentUser = firebase.auth().currentUser;
+            console.log(currentUser.email)
             db.collection('questions')
                 .get()
                 .then(querySnapshot => {

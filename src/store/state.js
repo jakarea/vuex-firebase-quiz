@@ -1,5 +1,5 @@
 export default {
-	user: {},
-	loading:false,
-	errors:{}
+	user : {},
+	loading : false,
+	errors : {}
 }

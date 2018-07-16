@@ -4,33 +4,33 @@
             <div class="section-title">
                 <h2>Please<span> Register</span></h2>
             </div>
-            
+
             <div class="row">
                 <div class="col-sm-6 col-xs-12 col-md-6 col-md-offset-3">
                     <div class="contact-form">
                         <form id="contact_form">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="form-group"><label class="sr-only">Name</label> 
+                                    <div class="form-group"><label class="sr-only">Name</label>
                                         <input name="name" placeholder="Your name" v-model="name" type="text" class="form-control">
-                                        <span class="help-text text-danger">{{ error.name }}</span>
+                                        <span class="help-text text-danger">{{ errorMsg.name }}</span>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <div class="form-group"><label class="sr-only">Email</label> 
+                                    <div class="form-group"><label class="sr-only">Email</label>
                                         <input name="email" placeholder="Email" v-model="email" type="text" class="form-control">
-                                        <span class="help-text text-danger">{{ error.email }}</span>
+                                        <span class="help-text text-danger">{{ errorMsg.email }}</span>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <div class="form-group"><label class="sr-only">Password</label> 
+                                    <div class="form-group"><label class="sr-only">Password</label>
                                         <input name="password" placeholder="Password" v-model="password" type="password" class="form-control">
-                                        <span class="help-text text-danger">{{ error.email }}</span>
+                                        <span class="help-text text-danger">{{ errorMsg.email }}</span>
                                     </div>
                                 </div>
-                                
+
                                 <div class="row">
-                                    <div class="col-md-8">    
+                                    <div class="col-md-8">
                                         <p>Allready have account? <router-link to="/login" tag="a">login</router-link></p>
                                     </div>
                                     <div class="col-md-4">
@@ -49,7 +49,7 @@
 	                                    	<button class="m-btn pull-right">Registe with google</button>
 	                                    </div>
 	                                </div>
-                                </div>	
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -69,12 +69,11 @@
                 email : '',
                 password : '',
                 name :'',
-                error : {
+                errorMsg : {
                     email : '',
                     name : '',
                     password : ''
-                },
-                countErrors: 0
+                }
             }
         },
 
@@ -83,36 +82,42 @@
                 user : state => state.user
             })
         },
+        watch: {
+          user (value) {
+            if (value !== null && value !== undefined) {
+              this.$router.push('/quiz')
+            }
+          }
+        },
 
         methods: {
 
             ...mapActions(['registerUserByEmailAndPassword','authenticatUserByFacebook']),
             checkRequired(){
-
+                let error = 0;
                 if(this.email ==''){
-                    this.countErrors++
-                    this.error.email = 'Email should not be empty'
+                    error++
+                    this.errorMsg.email = 'Email should not be empty'
                 }
                 if(this.name ==''){
-                    this.countErrors++
-                    this.error.name = 'Name should not be empty'
+                    error++
+                    this.errorMsg.name = 'Name should not be empty'
                 }
                 if(this.password ==''){
-                    this.countErrors++
-                    this.error.password = 'Password should not be empty'
+                    error++
+                    this.errorMsg.password = 'Password should not be empty'
                 }
-            
-                if(this.countErrors > 0)
+
+                if(error > 0)
                     return true;
-                
-                this.error = ''
+
                 return false;
             },
-            
+
             registerByEmailAndPassword(){
                 if(this.checkRequired())
                     return false;
-                  
+
                 const credentials = { email:this.email, password: this.password, name:this.name}
                 this.registerUserByEmailAndPassword(credentials)
             }

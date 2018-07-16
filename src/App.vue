@@ -1,11 +1,17 @@
 <template>
   <div>
-   <div id="loading">
+    <div id="loading">
       <div class="load-circle"><span class="one"></span></div>
     </div>
+
+    <div v-show="this.$store.state.loading">
+      <div class="load-circle"><span class="one"></span></div>
+    </div>
+
     <header class="header fixed-header">
       <Nav/>
     </header>
+
     <section id="resume" class="section blog-style">
         <div class="container">
             <div class="row">
@@ -40,6 +46,6 @@
     },
     mounted:function(){
       console.log('loading...')
-    }
+    },
   }
 </script>
